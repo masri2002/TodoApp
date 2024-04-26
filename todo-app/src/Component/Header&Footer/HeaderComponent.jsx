@@ -1,0 +1,42 @@
+import { Link } from "react-router-dom";
+import {  useAuth } from "../Security/Authn";
+
+function HeaderComponent(){
+    const authnContext=useAuth()
+    const isAuthn =authnContext.isAuth
+    function Logout(){
+        authnContext.logout()
+    }
+    return(
+        <div className="Header">
+       <header className="border-bottom border-light border-5 mb-5 p-2">
+            <div className="container">
+                <div className="row">
+                    <nav className="navbar navbar-expand-lg">
+                        <a className="navbar-brand ms-2 fs-2 fw-bold text-black" href="https://www.google.com">TodoApp</a>
+                        <div className="collapse navbar-collapse">
+                            <ul className="navbar-nav">
+                                <li className="nav-item fs-5">
+                                    {isAuthn && <Link className="nav-link" to="/welcome/Masri2k_">Home</Link>}
+                                    </li>
+                                <li className="nav-item fs-5">
+                                    {isAuthn && <Link className="nav-link" to="/Todo">Todos</Link>}
+                                    </li>
+                            </ul>
+                        </div>
+                        <ul className="navbar-nav">
+                            <li className="nav-item fs-5">
+                               
+                               {!isAuthn && <Link className="nav-link" to="/login">Login</Link>}
+                                </li>
+                            <li className="nav-item fs-5">
+                                {isAuthn&&<Link className="nav-link" to="/logout" onClick={Logout}>Logout</Link>}
+                                </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </header>
+        </div>
+    )
+}export default HeaderComponent;
